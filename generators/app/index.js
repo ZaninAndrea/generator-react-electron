@@ -28,8 +28,8 @@ module.exports = class extends Generator {
         ]).then((answers) => {
             answers.name = answers.name.split(" ").join("").toLowerCase() // remove whitespace and lowercase
             answers.electrondev = /^win/.test(process.platform) ?
-                "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"" :
-                "concurrently \"export BROWSER=none && yarn start\" \"wait-on http://localhost:3000 && electron .\""
+                `concurrently \\"SET BROWSER=none&&yarn start\\" \\"wait-on http://localhost:3000 && electron .\\"` :
+                `concurrently \\"export BROWSER=none && yarn start\\" \\"wait-on http://localhost:3000 && electron .\\"`
 
             this.fs.copyTpl(this.templatePath("electron-react/README.md"), this.destinationPath('README.md'), answers)
             this.fs.copyTpl(this.templatePath("electron-react/package.json"), this.destinationPath('package.json'), answers)
