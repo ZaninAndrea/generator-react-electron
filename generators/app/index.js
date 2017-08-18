@@ -26,6 +26,7 @@ module.exports = class extends Generator {
                 default: this.user.git.name
             }
         ]).then((answers) => {
+	    answers.name = answers.name.split(" ").join("").toLowerCase() // remove whitespace and lowercase
             this.fs.copyTpl(this.templatePath("electron-react/README.md"), this.destinationPath('README.md'), answers)
             this.fs.copyTpl(this.templatePath("electron-react/package.json"), this.destinationPath('package.json'), answers)
             this.fs.copy(this.templatePath("electron-react/gitignore"), this.destinationPath('.gitignore'))
