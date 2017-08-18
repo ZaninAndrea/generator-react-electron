@@ -14,7 +14,7 @@ module.exports = class extends Generator {
                 type: 'input',
                 name: 'name',
                 message: 'Your project name',
-                default: this.appname // Default to current folder name
+                default: this.appname.split(" ").join("").toLowerCase()  // Default to current folder name
             }, {
                 type: 'input',
                 name: 'description',
@@ -26,7 +26,11 @@ module.exports = class extends Generator {
                 default: this.user.git.name
             }
         ]).then((answers) => {
-	    answers.name = answers.name.split(" ").join("").toLowerCase() // remove whitespace and lowercase
+            answers.name = answers.name.split(" ").join("").toLowerCase() // remove whitespace and lowercase
+            answers.electrondev = /^win/.test(process.platform) ?
+                "concurrently \"yarn start\" \"wait-on http://localhost:3000 && electron .\"" :
+                "concurrently \"export BROWSER=none && yarn start\" \"wait-on http://localhost:3000 && electron .\""
+
             this.fs.copyTpl(this.templatePath("electron-react/README.md"), this.destinationPath('README.md'), answers)
             this.fs.copyTpl(this.templatePath("electron-react/package.json"), this.destinationPath('package.json'), answers)
             this.fs.copy(this.templatePath("electron-react/gitignore"), this.destinationPath('.gitignore'))
@@ -38,6 +42,7 @@ module.exports = class extends Generator {
             this.fs.copy(this.templatePath("electron-react/public/favicon.ico"), this.destinationPath('public/favicon.ico'))
             this.fs.copy(this.templatePath("electron-react/public/index.html"), this.destinationPath('public/index.html'))
             this.fs.copyTpl(this.templatePath("electron-react/public/manifest.json"), this.destinationPath('public/manifest.json'), answers)
+	    console.log("\n\nYou can now run the development environment with \n> npm run electron-dev\nif you are on windows an error message will pop up, just close it, don't worry\n\nto pack you app\n> npm run electron-pack")
         });
     }
 };
