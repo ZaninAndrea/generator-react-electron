@@ -1,5 +1,4 @@
-# React-Electron Yeoman Generator
-React-Electron is a lightweight yeoman generator to get you started with this beautiful combo.    
+> lightweight yeoman generator to get you started with thie beautiful react-electron combo.    
 
 ## Getting started
 The usage is very simple:  
@@ -15,6 +14,10 @@ npm install generator-react-electron -g
 ```bash  
 yo react-electron  
 ```  
+- install the packages
+```bash
+npm install
+```
 
 And you are now good to go!
 
