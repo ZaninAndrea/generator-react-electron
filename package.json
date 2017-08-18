@@ -1,6 +1,6 @@
 {
     "name": "generator-react-electron",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "description": "Creates an new electron+react app with all the development and testing already wired for you",
     "files": [
         "generators"
@@ -11,6 +11,16 @@
     "dependencies": {
         "yeoman-generator": "^1.0.0"
     },
-    "author":"ZaninAndrea",
-    "license":"ISC"
+    "author": "ZaninAndrea",
+    "repository": "https://github.com/ZaninAndrea/generator-react-electron",
+    "keywords": [
+        "yeoman-generator",
+        "Electron",
+        "react"
+    ],
+    "bugs": {
+        "url": "https://github.com/ZaninAndrea/generator-react-electron/issues"
+    },
+    "homepage": "https://github.com/ZaninAndrea/generator-react-electron#readme",
+    "license": "ISC"
 }
