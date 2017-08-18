@@ -10,5 +10,7 @@
     ],
     "dependencies": {
         "yeoman-generator": "^1.0.0"
-    }
+    },
+    "author":"ZaninAndrea",
+    "license":"ISC"
 }
