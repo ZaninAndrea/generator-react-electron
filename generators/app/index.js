@@ -12,7 +12,7 @@ module.exports = class extends Generator {
     createDirectory() {
         this.fs.copy(this.templatePath("electron-react/README.md"), this.destinationPath('README.md'))
         this.fs.copy(this.templatePath("electron-react/package.json"), this.destinationPath('package.json'))
-        this.fs.copy(this.templatePath("electron-react/.gitignore"), this.destinationPath('.gitignore'))
+        this.fs.copy(this.templatePath("electron-react/gitignore"), this.destinationPath('.gitignore'))
         this.fs.copy(this.templatePath("electron-react/src/App.js"), this.destinationPath('src/App.js'))
         this.fs.copy(this.templatePath("electron-react/src/App.test.js"), this.destinationPath('src/App.test.js'))
         this.fs.copy(this.templatePath("electron-react/src/index.js"), this.destinationPath('src/index.js'))
