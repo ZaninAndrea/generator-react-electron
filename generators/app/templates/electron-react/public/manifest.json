@@ -1,6 +1,6 @@
 {
-  "short_name": "React+Electron App",
-  "name": "React+Electron App",
+  "short_name": "<%= name %>",
+  "name": "<%= name %>",
   "icons": [
     {
       "src": "favicon.ico",
