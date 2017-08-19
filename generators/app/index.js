@@ -42,7 +42,7 @@ module.exports = class extends Generator {
             this.fs.copy(this.templatePath("electron-react/public/favicon.ico"), this.destinationPath('public/favicon.ico'))
             this.fs.copy(this.templatePath("electron-react/public/index.html"), this.destinationPath('public/index.html'))
             this.fs.copyTpl(this.templatePath("electron-react/public/manifest.json"), this.destinationPath('public/manifest.json'), answers)
-	    console.log("\n\nYou can now run the development environment with \n> npm run electron-dev\nif you are on windows an error message will pop up, just close it, don't worry\n\nto pack you app\n> npm run electron-pack")
+	    console.log("\n\nYou can now run the development environment with \n> npm run electron-dev\n\nto pack you app\n> npm run electron-pack")
         });
     }
 };
