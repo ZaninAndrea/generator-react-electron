@@ -5,7 +5,7 @@ module.exports = class extends Generator {
     constructor(args, opts) {
         // Calling the super constructor is important so our generator is correctly set up
         super(args, opts)
-
+        this.answers={}
         // Next, add your custom code
     }
     prompting() {
@@ -14,9 +14,16 @@ module.exports = class extends Generator {
                 .split(" ")
                 .join("")
                 .toLowerCase() // remove whitespace and lowercase
-            answers.electrondev = /^win/.test(process.platform)
-                ? `concurrently \\"SET BROWSER=none&&yarn start\\" \\"wait-on http://localhost:3000 && electron .\\"`
-                : `concurrently \\"export BROWSER=none && yarn start\\" \\"wait-on http://localhost:3000 && electron .\\"`
+            if (answers.sass){
+              answers.electrondev = /^win/.test(process.platform)
+                  ? `concurrently  \\"yarn watch-css\\" \\"SET BROWSER=none&&yarn start\\" \\"wait-on http://localhost:3000 && electron .\\"`
+                  : `concurrently \\"yarn watch-css\\" \\"export BROWSER=none && yarn start\\" \\"wait-on http://localhost:3000 && electron .\\"`
+            }
+            else{
+              answers.electrondev = /^win/.test(process.platform)
+                  ? `concurrently \\"SET BROWSER=none&&yarn start\\" \\"wait-on http://localhost:3000 && electron .\\"`
+                  : `concurrently \\"export BROWSER=none && yarn start\\" \\"wait-on http://localhost:3000 && electron .\\"`
+            }
 
             this.fs.copyTpl(
                 this.templatePath("electron-react/README.md"),
@@ -77,14 +84,11 @@ module.exports = class extends Generator {
                     answers
                 )
             }
+            this.answers=answers
             this.npmInstall()
-            if (answers.autoupdate)
-              console.log("\n\nYou can now run the development environment with \n> npm run electron-dev\n\nto pack you app\n> npm run electron-pack\n\nto ship an update\n> npm run ship")
-            else
-              console.log("\n\nYou can now run the development environment with \n> npm run electron-dev\n\nto pack you app\n> npm run electron-pack")
         }
 
-        return this.prompt([
+        this.prompt([
             {
                 type: "input",
                 name: "name",
@@ -105,6 +109,16 @@ module.exports = class extends Generator {
                 message: "Who are you?",
                 default: this.user.git.name,
                 store: true,
+            },
+            {
+                type: "confirm",
+                name: "sass",
+                message: "Do you want to use sass?"
+            },
+            {
+                type: "confirm",
+                name: "prettier",
+                message: "Do you want to use Prettier linter?"
             },
             {
                 type: "confirm",

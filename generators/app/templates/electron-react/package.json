@@ -4,11 +4,8 @@
     "author": "<%= author %>",
     "homepage": "./",
     "description": "<%= description %>",
-    "main": "public/electron.js",
-            <% if (autoupdate) { %>
-    "repository": "<%= repository %>",
-    <% } %>
-
+    "main": "public/electron.js",<% if (autoupdate) { %>
+    "repository": "<%= repository %>",<% } %>
     "build": {
         "appId": "com.<%= name %>",
         "files": ["build/**/*", "node_modules/**/*"],
@@ -17,30 +14,41 @@
         }
     },
     "dependencies": {
-      "electron-updater": "^2.10.1",
+        <% if (sass) { %>"node-sass-chokidar": "0.0.3",
+        <% } %><% if (autoupdate) { %>"electron-updater": "^2.10.1",<% } %>
         "react": "^15.6.1",
         "react-dom": "^15.6.1",
         "react-scripts": "1.0.10",
         "electron-is-dev": "^0.3.0"
-    },
-    "scripts": {
+
+    },<% if (prettier) { %>
+    "lint-staged": {
+        "{{public,src}/**/*.{scss,js,json},package.json}": [
+            "prettier --write \"{{public,src}/**/*.{scss,js,json},package.json}\"",
+            "git add"
+        ]
+    },<% } %>
+    "scripts": {<% if (autoupdate) { %>
+        <% if (sass) { %>"preship":"yarn build && yarn build-css",<% } %><% if (!sass) { %>"preship":"yarn build",<% } %>
+        "ship":
+            "build --em.main=build/electron.js --win --ia32 -p always -c electron-builder.yml",<% } %>
+        <% if (sass) { %>"build-css": "node-sass-chokidar src/ -o src/",
+        "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",<% } %>
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test --env=jsdom",
-        "eject": "react-scripts eject",
+        "eject": "react-scripts eject",<% if (prettier) { %>
+        "pretty":
+            "prettier --write \"{{public,src}/**/*.{css,scss,js,json},package.json}\"",
+        "precommit": "lint-staged",<% } %>
         "electron-dev": "<%- electrondev %>",
         "electron-pack": "build --em.main=build/electron.js --win --ia32 -c electron-builder.yml",
-        <% if (autoupdate) { %>
-          "preelectron-pack": "yarn build",
-          "preship":"yarn build",
-          "ship":
-              "build --em.main=build/electron.js --win --ia32 -p always -c electron-builder.yml"
-        <% } %>
-        <% if(!autoupdate) { %>
-          "preelectron-pack": "yarn build"
-        <% } %>
+        <% if (sass) { %>"preelectron-pack": "yarn build && yarn build-css"<% } %><% if (!sass) { %>"preelectron-pack": "yarn build"<% } %>
     },
-    "devDependencies": {
+    "devDependencies": {<% if (prettier) { %>
+        "prettier": "^1.7.4",
+        "husky": "^0.14.3",
+        "lint-staged": "^4.2.3",<% } %>
         "concurrently": "^3.5.0",
         "electron": "^1.7.5",
         "electron-builder": "^19.20.1",

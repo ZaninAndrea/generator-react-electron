@@ -16,7 +16,7 @@ function createWindow() {
   // when the app is loaded create a BrowserWindow and check for updates
   app.on('ready', function() {
     createWindow()
-    autoUpdater.checkForUpdates();
+    if (!isDev) autoUpdater.checkForUpdates();
   });
 <% } %>
 <% if (!autoupdate) { %>
