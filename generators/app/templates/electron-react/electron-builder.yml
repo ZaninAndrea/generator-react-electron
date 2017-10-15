@@ -1,0 +1,10 @@
+publish:
+    provider: github
+    token: <%= token %>
+appId: com.<%= name %>
+files:
+    - build/**/*
+    - node_modules/**/*"
+directories:
+    buildResources: assets
+productName: <%= name %>

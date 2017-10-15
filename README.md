@@ -1,4 +1,4 @@
-> lightweight yeoman generator to get you started with thie beautiful react-electron combo.    
+> lightweight yeoman generator to get you started with the beautiful react-electron combo.    
 
 ## Getting started
 The usage is very simple:  
@@ -13,10 +13,6 @@ npm install generator-react-electron -g
 - call this from inside the folder you want to bootstrap your application  
 ```bash  
 yo react-electron  
-```  
-- install the packages
-```bash
-npm install
 ```
 
 And you are now good to go!
@@ -29,4 +25,9 @@ npm run electron-dev
 - to create an optimized version of you app (output in the dist folder)
 ```bash
 npm run electron-pack
+```
+
+- if you chose to have autoupdates, change the package version, run the following line, then go to the repository's releases and publish the new release.
+```bash
+npm run ship
 ```
